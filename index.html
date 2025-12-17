@@ -10,6 +10,12 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Georgia', 'Times New Roman', serif;
+            -webkit-hyphens: auto;
+            -moz-hyphens: auto;
+            -ms-hyphens: auto;
+            hyphens: auto;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
         }
         
         body {
@@ -20,6 +26,9 @@
             max-width: 1100px;
             margin: 0 auto;
             font-size: 17px;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         .article-container {
@@ -334,22 +343,59 @@
             body {
                 padding: 10px;
                 font-size: 16px;
+                line-height: 1.6;
+                text-align: justify;
+                hyphens: auto;
+                word-spacing: -0.05em;
             }
             
             .article-container {
-                padding: 25px;
+                padding: 20px 15px;
             }
             
             h1 {
-                font-size: 28px;
+                font-size: 24px;
+                line-height: 1.2;
+                word-break: normal;
+                hyphens: manual;
             }
             
             .section-title {
-                font-size: 22px;
+                font-size: 20px;
+            }
+            
+            .subsection-title {
+                font-size: 18px;
+            }
+            
+            p, li {
+                text-align: left;
+                word-spacing: normal;
+                margin-bottom: 10px;
             }
             
             .figure-grid {
                 grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            ul, ol {
+                padding-left: 20px;
+            }
+            
+            .numbered-list li {
+                padding-left: 40px;
+                margin-bottom: 15px;
+            }
+            
+            .highlight-box, .info-box, .question-box {
+                padding: 15px;
+                margin: 15px 0;
+            }
+            
+            .image-container {
+                padding: 15px;
+                margin: 20px 0;
             }
         }
         
@@ -512,10 +558,8 @@
                     <p class="image-caption"><span class="image-number">Рис. 3</span> КТ легких с очагом.</p>
                 </div>
                 
-                <div class="figure-item">
-                    <img src="image4.png" alt="КТ с обведенным очагом">
-                    <p class="image-caption"><span class="image-number">Рис. 4</span> КТ с обведенным очагом.</p>
-                </div>
+                <!-- УДАЛЕН РИСУНОК 4 -->
+                
             </div>
             
             <div class="highlight-box">
@@ -524,12 +568,12 @@
             
             <div class="image-container">
                 <img src="image5.png" alt="Сравнение флюорографии и КТ">
-                <p class="image-caption"><span class="image-number">Рис. 5</span> Сравнение 2-х методов исследований</p>
+                <p class="image-caption"><span class="image-number">Рис. 4</span> Сравнение 2-х методов исследований</p>
             </div>
             
             <div class="image-container">
                 <img src="image6.png" alt="Пример случая визуализации методом флюорографии и КТ">
-                <p class="image-caption"><span class="image-number">Рис. 6</span> Еще пример случая визуализации методом флюорографии и КТ.</p>
+                <p class="image-caption"><span class="image-number">Рис. 5</span> Еще пример случая визуализации методом флюорографии и КТ.</p>
             </div>
             
             <div class="question-box">
