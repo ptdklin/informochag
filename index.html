@@ -125,6 +125,12 @@
             border-left: 4px solid #3498db;
         }
         
+        /* Класс для предотвращения разрыва при печати */
+        .print-keep-together {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        
         .highlight-box {
             background: linear-gradient(to right, #f8f9fa, #f0f7ff);
             border-left: 5px solid #3498db;
@@ -206,7 +212,6 @@
             font-size: 16px;
             line-height: 1.5;
             padding: 0 10px;
-            page-break-inside: avoid; /* Предотвращаем разрыв при печати */
         }
         
         .image-number {
@@ -218,13 +223,6 @@
             font-weight: bold;
             margin-right: 8px;
             font-size: 15px;
-            white-space: nowrap; /* Предотвращаем разрыв "Рис. 5" */
-        }
-        
-        /* Специальный класс для предотвращения разрыва подписи Рис. 5 */
-        .image-caption-fig5 {
-            page-break-inside: avoid !important;
-            break-inside: avoid !important;
         }
         
         .highlight {
@@ -433,12 +431,19 @@
                 box-shadow: 0 3px 6px rgba(0,0,0,0.08);
             }
             
-            /* Особое правило для предотвращения разрыва "Рис. 5" */
-            .image-container.zoom-enabled:last-of-type .image-caption {
+            /* Класс для предотвращения разрыва при печати */
+            .print-keep-together {
                 page-break-inside: avoid !important;
                 break-inside: avoid !important;
             }
             
+            /* Особые правила для конкретных элементов */
+            .subsection-title + p,
+            .subsection-title + .image-container {
+                page-break-inside: avoid !important;
+            }
+            
+            /* Для Рис. 5 и других важных элементов */
             .image-number {
                 white-space: nowrap !important;
             }
@@ -658,15 +663,18 @@
                 </p>
             </div>
             
-            <h3 class="subsection-title">Поиск ранных изменений.</h3>
-            
-            <p>Рассмотрим другой пример:  флюорографии лёгкие выглядят здоровыми — никаких изменений не видно. На снимке создаётся впечатление, что человек полностью здоров. Но это не так.</p>
-            
-            <div class="image-container no-zoom">
-                <img src="image2.png" alt="Флюорограмма без видимых изменений">
-                <p class="image-caption">
-                    <span class="image-number">Рис. 2</span> По данным флюорографии изменения не видны
-                </p>
+            <!-- НЕРАЗРЫВНЫЙ БЛОК ДЛЯ ПЕЧАТИ -->
+            <div class="print-keep-together">
+                <h3 class="subsection-title">Поиск ранных изменений.</h3>
+                
+                <p>Рассмотрим другой пример: флюорографии лёгкие выглядят здоровыми — никаких изменений не видно. На снимке создаётся впечатление, что человек полностью здоров. Но это не так.</p>
+                
+                <div class="image-container no-zoom">
+                    <img src="image2.png" alt="Флюорограмма без видимых изменений">
+                    <p class="image-caption">
+                        <span class="image-number">Рис. 2</span> По данным флюорографии изменения не видны
+                    </p>
+                </div>
             </div>
             
             <p>На самом деле, ранняя стадия туберкулёза уже развилась. Это станет очевидно при переходе на более точный метод — компьютерную томографию (КТ).</p>
@@ -704,7 +712,7 @@
             
             <div class="image-container zoom-enabled" onclick="openModal('image6.png', 'Рис. 5: Для сравнения визуализации изменений методами флюорографии и КТ')">
                 <img src="image6.png" alt="Пример случая визуализации методом флюорографии и КТ">
-                <p class="image-caption image-caption-fig5">
+                <p class="image-caption">
                     <span class="image-number">Рис. 5</span> Ещё один пример:
 на флюорографии изменения либо не видны, либо выглядят неубедительно,
 тогда как на КТ они определяются чётко и однозначно.
@@ -832,8 +840,8 @@
                         display: none !important;
                     }
                     
-                    /* Особое правило для изображения с Рис. 5 */
-                    .image-caption-fig5 {
+                    /* Обеспечиваем неразрывность для конкретного блока */
+                    .print-keep-together {
                         page-break-inside: avoid !important;
                         break-inside: avoid !important;
                     }
