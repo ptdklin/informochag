@@ -5,680 +5,354 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Информация об обследовании на туберкулез в Вашем коллективе</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Georgia', 'Times New Roman', serif;
-            -webkit-hyphens: auto;
-            -moz-hyphens: auto;
-            -ms-hyphens: auto;
-            hyphens: auto;
-            overflow-wrap: break-word;
-            word-wrap: break-word;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Georgia', 'Times New Roman', serif;
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        hyphens: auto;
+        overflow-wrap: break-word;
+        word-wrap: break-word;
+    }
+    
+    body {
+        line-height: 1.7;
+        color: #333;
+        background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+        padding: 20px;
+        max-width: 1100px;
+        margin: 0 auto;
+        font-size: 17px;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+    
+    .article-container {
+        background-color: white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        border-radius: 12px;
+        overflow: hidden;
+        padding: 50px 60px;
+        position: relative;
+    }
+    
+    .article-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: linear-gradient(to right, #3498db, #2ecc71);
+    }
+    
+    .header {
+        text-align: center;
+        margin-bottom: 45px;
+        padding-bottom: 25px;
+        border-bottom: 2px solid #eaeaea;
+        position: relative;
+    }
+    
+    .header::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 25%;
+        width: 50%;
+        height: 3px;
+        background: linear-gradient(to right, transparent, #3498db, transparent);
+    }
+    
+    h1 {
+        color: #2c3e50;
+        font-size: 34px;
+        margin-bottom: 15px;
+        font-weight: 700;
+        line-height: 1.3;
+    }
+    
+    .subtitle {
+        color: #7f8c8d;
+        font-size: 20px;
+        font-weight: normal;
+        font-style: italic;
+        margin-bottom: 10px;
+    }
+    
+    .author {
+        color: #95a5a6;
+        font-size: 16px;
+        margin-top: 15px;
+    }
+    
+    .content-section {
+        margin-bottom: 40px;
+    }
+    
+    .section-title {
+        color: #2c3e50;
+        font-size: 26px;
+        margin: 35px 0 20px 0;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #f0f0f0;
+        position: relative;
+    }
+    
+    .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 80px;
+        height: 3px;
+        background: #3498db;
+    }
+    
+    .subsection-title {
+        color: #3498db;
+        font-size: 21px;
+        margin: 25px 0 15px 0;
+        padding-left: 15px;
+        border-left: 4px solid #3498db;
+    }
+    
+    .highlight-box {
+        background: linear-gradient(to right, #f8f9fa, #f0f7ff);
+        border-left: 5px solid #3498db;
+        padding: 22px;
+        margin: 25px 0;
+        border-radius: 0 8px 8px 0;
+    }
+    
+    .info-box {
+        background-color: #f0f9ff;
+        border: 1px solid #d1e7ff;
+        padding: 20px;
+        margin: 25px 0;
+        border-radius: 8px;
+    }
+    
+    .image-container {
+        text-align: center;
+        margin: 35px 0;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border: 1px solid #eaeaea;
+        border-radius: 10px;
+    }
+    
+    .image-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 6px;
+    }
+    
+    .image-caption {
+        font-style: italic;
+        color: #555;
+        margin-top: 15px;
+        font-size: 16px;
+    }
+    
+    .image-number {
+        display: inline-block;
+        background: #3498db;
+        color: white;
+        padding: 3px 10px;
+        border-radius: 4px;
+        font-weight: bold;
+        margin-right: 8px;
+    }
+    
+    .highlight {
+        background-color: rgba(52, 152, 219, 0.15);
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: 600;
+    }
+    
+    ul, ol {
+        padding-left: 30px;
+        margin: 20px 0;
+    }
+    
+    li {
+        margin-bottom: 12px;
+    }
+    
+    .numbered-list {
+        counter-reset: list-counter;
+        list-style-type: none;
+        padding-left: 0;
+    }
+    
+    .numbered-list li {
+        position: relative;
+        padding-left: 45px;
+        margin-bottom: 20px;
+    }
+    
+    .numbered-list li::before {
+        counter-increment: list-counter;
+        content: counter(list-counter);
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: #3498db;
+        color: white;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+    
+    .question-box {
+        background: linear-gradient(to right, #fff8e1, #fffde7);
+        border-left: 5px solid #ffb300;
+        padding: 22px;
+        margin: 30px 0;
+        border-radius: 0 8px 8px 0;
+    }
+    
+    .question {
+        font-weight: bold;
+        color: #ff8f00;
+        margin-bottom: 10px;
+        font-size: 18px;
+    }
+    
+    .conclusion {
+        background: linear-gradient(to right, #e8f5e9, #f1f8e9);
+        border-left: 5px solid #4caf50;
+        padding: 25px;
+        margin: 40px 0;
+        border-radius: 0 10px 10px 0;
+        text-align: center;
+        font-style: italic;
+    }
+    
+    .footer {
+        margin-top: 50px;
+        padding-top: 25px;
+        border-top: 1px solid #eee;
+        text-align: center;
+        color: #7f8c8d;
+        font-size: 15px;
+    }
+
+    .legal-reference {
+        font-size: 15px;
+        background: #ffeaea;
+        padding: 15px;
+        border-left: 5px solid #e74c3c;
+        margin: 15px 0;
+        border-radius: 6px;
+    }
+
+    /* МОДАЛЬНОЕ ОКНО */
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); }
+    .modal-content { margin: auto; display: block; max-width: 90%; max-height: 90%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+    .close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer; }
+
+    /* ОПТИМИЗАЦИЯ ДЛЯ ПЕЧАТИ (КНИЖНЫЙ ФОРМАТ) */
+    @media print {
+        @page {
+            size: A4 portrait;
+            margin: 15mm 12mm;
         }
         
         body {
-            line-height: 1.7;
-            color: #333;
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
-            padding: 20px;
-            max-width: 1100px;
-            margin: 0 auto;
-            font-size: 17px;
-            text-rendering: optimizeLegibility;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            background: white !important;
+            color: black !important;
+            font-size: 11pt !important;
+            line-height: 1.4 !important;
+            padding: 0 !important;
+            margin: 0 !important;
         }
         
         .article-container {
-            background-color: white;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            border-radius: 12px;
-            overflow: hidden;
-            padding: 50px 60px;
-            position: relative;
+            box-shadow: none !important;
+            padding: 0 !important;
+            border-radius: 0 !important;
+            width: 100% !important;
         }
-        
-        .article-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: linear-gradient(to right, #3498db, #2ecc71);
+
+        .article-container::before, .header::after, .section-title::after, .click-hint {
+            display: none !important;
         }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 45px;
-            padding-bottom: 25px;
-            border-bottom: 2px solid #eaeaea;
-            position: relative;
-        }
-        
-        .header::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 25%;
-            width: 50%;
-            height: 3px;
-            background: linear-gradient(to right, transparent, #3498db, transparent);
-        }
-        
-        h1 {
-            color: #2c3e50;
-            font-size: 34px;
-            margin-bottom: 15px;
-            font-weight: 700;
-            line-height: 1.3;
-            white-space: normal;
-            word-break: normal;
-            overflow-wrap: break-word;
-        }
-        
-        .subtitle {
-            color: #7f8c8d;
-            font-size: 20px;
-            font-weight: normal;
-            font-style: italic;
-            margin-bottom: 10px;
-        }
-        
-        .author {
-            color: #95a5a6;
-            font-size: 16px;
-            margin-top: 15px;
-        }
-        
-        .content-section {
-            margin-bottom: 40px;
-            position: relative;
-        }
+
+        h1 { font-size: 18pt !important; margin-bottom: 5mm !important; text-align: center !important; }
+        .subtitle { font-size: 12pt !important; text-align: center !important; margin-bottom: 5mm !important; }
         
         .section-title {
-            color: #2c3e50;
-            font-size: 26px;
-            margin: 35px 0 20px 0;
-            padding-bottom: 12px;
-            border-bottom: 2px solid #f0f0f0;
-            position: relative;
+            font-size: 14pt !important;
+            margin: 6mm 0 3mm 0 !important;
+            padding-bottom: 1mm !important;
+            border-bottom: 0.5pt solid #ccc !important;
+            page-break-after: avoid !important;
         }
-        
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 80px;
-            height: 3px;
-            background: #3498db;
-        }
-        
+
         .subsection-title {
-            color: #3498db;
-            font-size: 21px;
-            margin: 25px 0 15px 0;
-            padding-left: 15px;
-            border-left: 4px solid #3498db;
+            font-size: 12pt !important;
+            margin: 4mm 0 2mm 0 !important;
+            page-break-after: avoid !important;
+            border-left: 3pt solid #3498db !important;
         }
-        
-        .highlight-box {
-            background: linear-gradient(to right, #f8f9fa, #f0f7ff);
-            border-left: 5px solid #3498db;
-            padding: 22px;
-            margin: 25px 0;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+
+        /* Разрешаем разрывы внутри блоков, чтобы не было дыр */
+        .highlight-box, .info-box, .question-box, .legal-reference, .conclusion, .content-section {
+            page-break-inside: auto !important;
+            margin: 3mm 0 !important;
+            padding: 3mm !important;
+            border: 0.5pt solid #eee !important;
+            border-left: 3pt solid #3498db !important;
         }
-        
-        .info-box {
-            background-color: #f0f9ff;
-            border: 1px solid #d1e7ff;
-            padding: 20px;
-            margin: 25px 0;
-            border-radius: 8px;
-            position: relative;
-        }
-        
-        .info-box::before {
-            content: 'ℹ️';
-            position: absolute;
-            top: 20px;
-            left: -15px;
-            background: white;
-            border: 2px solid #d1e7ff;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-        
-        .image-container {
-            text-align: center;
-            margin: 35px 0;
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-radius: 10px;
-            border: 1px solid #eaeaea;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-        
-        .image-container.no-zoom {
-            cursor: default;
-        }
-        
-        .image-container.zoom-enabled {
-            cursor: pointer;
-        }
-        
-        .image-container.zoom-enabled:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        
-        .image-container img {
-            max-width: 100%;
-            height: auto;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            transition: transform 0.3s ease;
-        }
-        
-        .image-container.zoom-enabled:hover img {
-            transform: scale(1.02);
-        }
-        
-        .image-caption {
-            font-style: italic;
-            color: #555;
-            margin-top: 15px;
-            font-size: 16px;
-            line-height: 1.5;
-            padding: 0 10px;
-        }
-        
-        .image-number {
-            display: inline-block;
-            background: #3498db;
-            color: white;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-weight: bold;
-            margin-right: 8px;
-            font-size: 15px;
-        }
-        
-        .highlight {
-            background-color: rgba(52, 152, 219, 0.15);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
-        
-        ul, ol {
-            padding-left: 30px;
-            margin: 20px 0;
-        }
-        
-        li {
-            margin-bottom: 12px;
-            line-height: 1.6;
-        }
-        
-        .numbered-list {
-            counter-reset: list-counter;
-            list-style-type: none;
-            padding-left: 0;
-        }
-        
+
         .numbered-list li {
-            position: relative;
-            padding-left: 45px;
-            margin-bottom: 20px;
+            page-break-inside: avoid !important;
+            margin-bottom: 2mm !important;
         }
-        
-        .numbered-list li::before {
-            counter-increment: list-counter;
-            content: counter(list-counter);
-            position: absolute;
-            left: 0;
-            top: 0;
-            background: #3498db;
-            color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 16px;
-            box-shadow: 0 3px 6px rgba(52, 152, 219, 0.3);
+
+        /* Оптимизация изображений для книжной ориентации */
+        .image-container, .figure-item {
+            page-break-inside: avoid !important;
+            margin: 4mm auto !important;
+            padding: 2mm !important;
+            width: 100% !important;
+            max-width: 100% !important;
         }
-        
-        .question-box {
-            background: linear-gradient(to right, #fff8e1, #fffde7);
-            border-left: 5px solid #ffb300;
-            padding: 22px;
-            margin: 30px 0;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+
+        .image-container img, .figure-item img {
+            max-height: 8cm !important; /* Ограничиваем высоту, чтобы не выталкивало на новую страницу */
+            width: auto !important;
+            max-width: 100% !important;
+            display: block;
+            margin: 0 auto;
         }
-        
-        .question {
-            font-weight: bold;
-            color: #ff8f00;
-            margin-bottom: 10px;
-            font-size: 18px;
+
+        .image-caption {
+            font-size: 9pt !important;
+            margin-top: 2mm !important;
         }
-        
-        .answer {
-            color: #333;
-            padding-left: 20px;
-            border-left: 3px solid #ffb300;
-            margin-top: 15px;
-        }
-        
-        .conclusion {
-            background: linear-gradient(to right, #e8f5e9, #f1f8e9);
-            border-left: 5px solid #4caf50;
-            padding: 25px;
-            margin: 40px 0;
-            border-radius: 0 10px 10px 0;
-            text-align: center;
-            font-size: 18px;
-            font-style: italic;
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.1);
-        }
-        
+
         .footer {
-            margin-top: 50px;
-            padding-top: 25px;
-            border-top: 1px solid #eee;
-            text-align: center;
-            color: #7f8c8d;
-            font-size: 15px;
+            margin-top: 5mm !important;
+            font-size: 8pt !important;
+            page-break-inside: avoid !important;
         }
-        
-        .figure-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
-        }
-        
-        .figure-item {
-            text-align: center;
-        }
-        
-        .figure-item img {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-        }
-        
-        /* Модальное окно для увеличения изображений */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            animation: fadeIn 0.3s;
-        }
-        
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-        
-        .modal-content {
-            margin: auto;
-            display: block;
-            max-width: 90%;
-            max-height: 90%;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-        
-        .modal-caption {
-            text-align: center;
-            color: #fff;
-            padding: 15px;
-            font-size: 18px;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            background: rgba(0,0,0,0.7);
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
-        }
-        
-        .close {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            color: #fff;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-            z-index: 1001;
-            transition: 0.3s;
-        }
-        
-        .close:hover {
-            color: #3498db;
-        }
-        
-        .click-hint {
-            color: #3498db;
-            font-size: 14px;
-            font-style: italic;
-            margin-top: 5px;
-            display: block;
-        }
-        
-        /* УПРОЩЕННЫЕ И ИСПРАВЛЕННЫЕ СТИЛИ ДЛЯ ПЕЧАТИ */
-        @media print {
-            @page {
-                size: A4 portrait;
-                margin: 15mm 10mm;
-            }
-            
-            body {
-                background: white !important;
-                color: black !important;
-                font-size: 12pt !important;
-                line-height: 1.4 !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-            }
-            
-            .article-container {
-                box-shadow: none !important;
-                padding: 0 !important;
-                margin: 0 !important;
-                border-radius: 0 !important;
-                background: white !important;
-                width: 100% !important;
-            }
-            
-            /* Убираем все декоративные элементы */
-            .article-container::before,
-            .header::after,
-            .section-title::after,
-            .info-box::before,
-            .click-hint,
-            .modal,
-            .close {
-                display: none !important;
-            }
-            
-            /* Основные текстовые стили */
-            h1 {
-                font-size: 16pt !important;
-                margin: 10mm 0 5mm 0 !important;
-                page-break-after: avoid !important;
-            }
-            
-            .section-title {
-                font-size: 14pt !important;
-                margin: 8mm 0 4mm 0 !important;
-                padding-bottom: 2mm !important;
-                border-bottom: 1px solid #ccc !important;
-                page-break-after: avoid !important;
-            }
-            
-            .subsection-title {
-                font-size: 13pt !important;
-                margin: 6mm 0 3mm 0 !important;
-                page-break-after: avoid !important;
-            }
-            
-            .content-section {
-                margin-bottom: 5mm !important;
-            }
-            
-            p, li {
-                margin-bottom: 2mm !important;
-                text-align: justify !important;
-                hyphens: auto !important;
-            }
-            
-            /* Списки */
-            ul, ol {
-                margin: 3mm 0 !important;
-                padding-left: 6mm !important;
-            }
-            
-            .numbered-list li {
-                padding-left: 8mm !important;
-                margin-bottom: 3mm !important;
-            }
-            
-            .numbered-list li::before {
-                width: 6mm !important;
-                height: 6mm !important;
-                font-size: 10pt !important;
-            }
-            
-            /* Блоки с фоном */
-            .highlight-box,
-            .info-box,
-            .question-box,
-            .legal-reference,
-            .conclusion {
-                background: #f9f9f9 !important;
-                border: 1px solid #ddd !important;
-                border-left: 3px solid #3498db !important;
-                padding: 4mm !important;
-                margin: 3mm 0 !important;
-                page-break-inside: avoid !important;
-            }
-            
-            .question-box {
-                border-left-color: #ffb300 !important;
-            }
-            
-            .legal-reference {
-                border-left-color: #e74c3c !important;
-            }
-            
-            .conclusion {
-                border-left-color: #4caf50 !important;
-            }
-            
-            /* Изображения */
-            .image-container,
-            .figure-item {
-                border: 1px solid #ccc !important;
-                background: white !important;
-                padding: 3mm !important;
-                margin: 4mm 0 !important;
-                page-break-inside: avoid !important;
-                box-shadow: none !important;
-            }
-            
-            .image-container img,
-            .figure-item img {
-                max-width: 100% !important;
-                height: auto !important;
-                max-height: 120mm !important;
-                border: 1px solid #999 !important;
-            }
-            
-            .image-caption {
-                font-size: 10pt !important;
-                margin-top: 2mm !important;
-                color: #555 !important;
-            }
-            
-            .figure-grid {
-                grid-template-columns: 1fr !important;
-                gap: 4mm !important;
-            }
-            
-            /* Футер */
-            .footer {
-                margin-top: 10mm !important;
-                padding-top: 3mm !important;
-                border-top: 1px solid #ccc !important;
-                font-size: 10pt !important;
-                color: #666 !important;
-            }
-            
-            /* Группировка для изображения и заголовка */
-            .image-group {
-                margin-bottom: 5mm !important;
-            }
-            
-            .image-group .subsection-title {
-                margin-bottom: 2mm !important;
-            }
-            
-            /* Оптимизация разрывов - ТОЛЬКО ДЛЯ КРИТИЧЕСКИХ ЭЛЕМЕНТОВ */
-            h1, h2, h3 {
-                page-break-after: avoid !important;
-            }
-            
-            /* Минимальные правила для предотвращения разрывов внутри */
-            .conclusion,
-            .image-group,
-            .image-container:has(+ .subsection-title),
-            .subsection-title:has(+ .image-container) {
-                page-break-inside: avoid !important;
-            }
-            
-            /* Убираем все hover эффекты */
-            *:hover {
-                transform: none !important;
-                box-shadow: none !important;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            body {
-                padding: 10px;
-                font-size: 16px;
-                line-height: 1.6;
-                text-align: justify;
-                hyphens: auto;
-                word-spacing: -0.05em;
-            }
-            
-            .article-container {
-                padding: 20px 15px;
-            }
-            
-            h1 {
-                font-size: 24px;
-                line-height: 1.2;
-            }
-            
-            .section-title {
-                font-size: 20px;
-            }
-            
-            .subsection-title {
-                font-size: 18px;
-            }
-            
-            p, li {
-                text-align: left;
-                word-spacing: normal;
-                margin-bottom: 10px;
-            }
-            
-            .figure-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            
-            ul, ol {
-                padding-left: 20px;
-            }
-            
-            .numbered-list li {
-                padding-left: 40px;
-                margin-bottom: 15px;
-            }
-            
-            .highlight-box, .info-box, .question-box {
-                padding: 15px;
-                margin: 15px 0;
-            }
-            
-            .image-container {
-                padding: 15px;
-                margin: 20px 0;
-            }
-        }
-        
-        strong, b {
-            color: #2c3e50;
-        }
-        
-        .legal-reference {
-            font-size: 15px;
-            color: #333;
-            background: linear-gradient(to right, #ffeaea, #ffd6d6);
-            padding: 15px;
-            border-radius: 6px;
-            border-left: 5px solid #e74c3c;
-            margin: 15px 0;
-            box-shadow: 0 4px 8px rgba(231, 76, 60, 0.1);
-        }
-        
-        /* Стиль для списка без нумерации, только с маркерами */
-        .no-number-list {
-            list-style-type: none;
-            padding-left: 0;
-        }
-        
-        .no-number-list li {
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 15px;
-        }
-        
-        .no-number-list li::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: #3498db;
-            font-size: 20px;
-        }
-        
-        .new-line {
-            display: block;
-            margin-top: 10px;
-        }
-        
-        /* Группировка для изображения и заголовка */
-        .image-group {
-            margin-bottom: 30px;
-        }
-    </style>
+
+        /* Убираем пустые блоки */
+        .image-group { margin-bottom: 2mm !important; }
+    }
+</style>
 </head>
 <body>
     <div class="article-container">
