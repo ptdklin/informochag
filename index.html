@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Информация об обследовании на туберкулез в Вашем коллективе</title>
     <style>
-        /* Все CSS стили остаются такими же, как в предыдущей версии */
         * {
             margin: 0;
             padding: 0;
@@ -396,24 +395,22 @@
             display: block;
         }
         
-        /* СТИЛИ ДЛЯ ПЕЧАТИ - ИСПРАВЛЕНЫ */
+        /* УПРОЩЕННЫЕ И ИСПРАВЛЕННЫЕ СТИЛИ ДЛЯ ПЕЧАТИ */
         @media print {
             @page {
-                size: portrait; /* Книжный формат */
-                margin: 15mm; /* Уменьшаем поля */
+                size: A4 portrait;
+                margin: 15mm 10mm;
             }
             
             body {
-                background-color: white !important;
-                padding: 0 !important;
-                margin: 0 !important;
+                background: white !important;
+                color: black !important;
                 font-size: 12pt !important;
                 line-height: 1.4 !important;
+                padding: 0 !important;
+                margin: 0 !important;
                 width: 100% !important;
                 max-width: 100% !important;
-                color: #000 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
             }
             
             .article-container {
@@ -421,150 +418,160 @@
                 padding: 0 !important;
                 margin: 0 !important;
                 border-radius: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
                 background: white !important;
+                width: 100% !important;
             }
             
-            .article-container::before {
+            /* Убираем все декоративные элементы */
+            .article-container::before,
+            .header::after,
+            .section-title::after,
+            .info-box::before,
+            .click-hint,
+            .modal,
+            .close {
                 display: none !important;
             }
             
+            /* Основные текстовые стили */
             h1 {
-                font-size: 18pt !important;
+                font-size: 16pt !important;
+                margin: 10mm 0 5mm 0 !important;
                 page-break-after: avoid !important;
-                break-after: avoid !important;
-                margin-top: 0 !important;
-                padding-top: 5mm !important;
             }
             
             .section-title {
-                font-size: 16pt !important;
+                font-size: 14pt !important;
+                margin: 8mm 0 4mm 0 !important;
+                padding-bottom: 2mm !important;
+                border-bottom: 1px solid #ccc !important;
                 page-break-after: avoid !important;
-                break-after: avoid !important;
-                margin-top: 20px !important;
-                margin-bottom: 15px !important;
             }
             
             .subsection-title {
-                font-size: 14pt !important;
+                font-size: 13pt !important;
+                margin: 6mm 0 3mm 0 !important;
                 page-break-after: avoid !important;
-                break-after: avoid !important;
             }
             
             .content-section {
-                margin-bottom: 20px !important;
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
+                margin-bottom: 5mm !important;
             }
             
-            .highlight-box, .info-box, .question-box, .conclusion {
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
-                margin: 15px 0 !important;
-                padding: 15px !important;
+            p, li {
+                margin-bottom: 2mm !important;
+                text-align: justify !important;
+                hyphens: auto !important;
             }
             
-            .image-container, .figure-item {
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
-                margin: 20px 0 !important;
-                padding: 10px !important;
-                box-shadow: none !important;
+            /* Списки */
+            ul, ol {
+                margin: 3mm 0 !important;
+                padding-left: 6mm !important;
+            }
+            
+            .numbered-list li {
+                padding-left: 8mm !important;
+                margin-bottom: 3mm !important;
+            }
+            
+            .numbered-list li::before {
+                width: 6mm !important;
+                height: 6mm !important;
+                font-size: 10pt !important;
+            }
+            
+            /* Блоки с фоном */
+            .highlight-box,
+            .info-box,
+            .question-box,
+            .legal-reference,
+            .conclusion {
+                background: #f9f9f9 !important;
                 border: 1px solid #ddd !important;
+                border-left: 3px solid #3498db !important;
+                padding: 4mm !important;
+                margin: 3mm 0 !important;
+                page-break-inside: avoid !important;
             }
             
-            .image-container img, .figure-item img {
+            .question-box {
+                border-left-color: #ffb300 !important;
+            }
+            
+            .legal-reference {
+                border-left-color: #e74c3c !important;
+            }
+            
+            .conclusion {
+                border-left-color: #4caf50 !important;
+            }
+            
+            /* Изображения */
+            .image-container,
+            .figure-item {
+                border: 1px solid #ccc !important;
+                background: white !important;
+                padding: 3mm !important;
+                margin: 4mm 0 !important;
+                page-break-inside: avoid !important;
+                box-shadow: none !important;
+            }
+            
+            .image-container img,
+            .figure-item img {
                 max-width: 100% !important;
                 height: auto !important;
-                max-height: 250px !important; /* Ограничиваем высоту изображений */
-                object-fit: contain !important;
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
+                max-height: 120mm !important;
+                border: 1px solid #999 !important;
             }
             
             .image-caption {
                 font-size: 10pt !important;
-                margin-top: 10px !important;
-            }
-            
-            ul, ol {
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
-                margin: 10px 0 !important;
-            }
-            
-            li {
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
-            }
-            
-            .numbered-list li {
-                padding-left: 35px !important;
-                margin-bottom: 10px !important;
-            }
-            
-            .numbered-list li::before {
-                width: 25px !important;
-                height: 25px !important;
-                font-size: 12px !important;
-            }
-            
-            .click-hint, .modal, .close {
-                display: none !important;
-            }
-            
-            .footer {
-                margin-top: 30px !important;
-                padding-top: 15px !important;
-                font-size: 10pt !important;
-                page-break-before: avoid !important;
-                break-before: avoid !important;
-            }
-            
-            /* Предотвращаем висячие строки */
-            p, h1, h2, h3, h4, h5, h6 {
-                orphans: 3 !important;
-                widows: 3 !important;
-                page-break-after: avoid !important;
-                break-after: avoid !important;
-            }
-            
-            /* Минимизируем разрывы страниц */
-            .avoid-break {
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
-            }
-            
-            /* Убираем все hover-эффекты */
-            .image-container:hover, .figure-item:hover img {
-                transform: none !important;
-                box-shadow: none !important;
-            }
-            
-            .header::after, .section-title::after, .info-box::before {
-                display: none !important;
+                margin-top: 2mm !important;
+                color: #555 !important;
             }
             
             .figure-grid {
                 grid-template-columns: 1fr !important;
-                gap: 15px !important;
+                gap: 4mm !important;
             }
             
-            /* ДОБАВЛЕНО: Группировка заголовка с изображением */
+            /* Футер */
+            .footer {
+                margin-top: 10mm !important;
+                padding-top: 3mm !important;
+                border-top: 1px solid #ccc !important;
+                font-size: 10pt !important;
+                color: #666 !important;
+            }
+            
+            /* Группировка для изображения и заголовка */
             .image-group {
-                page-break-inside: avoid !important;
-                break-inside: avoid !important;
+                margin-bottom: 5mm !important;
             }
             
             .image-group .subsection-title {
-                margin-bottom: 5px !important;
+                margin-bottom: 2mm !important;
             }
             
-            .image-group .image-container {
-                margin-top: 5px !important;
+            /* Оптимизация разрывов - ТОЛЬКО ДЛЯ КРИТИЧЕСКИХ ЭЛЕМЕНТОВ */
+            h1, h2, h3 {
+                page-break-after: avoid !important;
+            }
+            
+            /* Минимальные правила для предотвращения разрывов внутри */
+            .conclusion,
+            .image-group,
+            .image-container:has(+ .subsection-title),
+            .subsection-title:has(+ .image-container) {
+                page-break-inside: avoid !important;
+            }
+            
+            /* Убираем все hover эффекты */
+            *:hover {
+                transform: none !important;
+                box-shadow: none !important;
             }
         }
         
@@ -667,22 +674,9 @@
             margin-top: 10px;
         }
         
-        /* Дополнительные стили для предотвращения разрывов */
-        .no-break {
-            page-break-inside: avoid !important;
-            break-inside: avoid !important;
-        }
-        
-        .keep-together {
-            display: inline-block;
-            page-break-inside: avoid !important;
-            break-inside: avoid !important;
-        }
-        
-        /* ДОБАВЛЕНО: Группировка заголовка с изображением */
+        /* Группировка для изображения и заголовка */
         .image-group {
-            page-break-inside: avoid;
-            break-inside: avoid;
+            margin-bottom: 30px;
         }
     </style>
 </head>
@@ -704,7 +698,7 @@
             
             <ul class="numbered-list">
                 <li><span class="highlight">Сотрудникам и учащимся:</span> пройти обязательное обследование.</li>
-                <li><span class="highlight">Администрации:</span> организовать обследование так, чтобы каждый сотрудник мог пройти его спокойно и без лишных сложностей.</li>
+                <li><span class="highlight">Администрации:</span> организовать обследование так, чтобы каждый сотрудник мог пройти его спокойно и без лишних сложностей.</li>
             </ul>
         </div>
         
@@ -796,9 +790,9 @@
                 </p>
             </div>
             
-            <!-- ИСПРАВЛЕНО: заголовок и изображение сгруппированы вместе -->
+            <!-- Группируем заголовок и изображение -->
             <div class="image-group">
-                <h3 class="subsection-title">Поиск ранных изменений.</h3>
+                <h3 class="subsection-title">Поиск ранних изменений.</h3>
                 
                 <p>Рассмотрим другой пример: флюорографии лёгкие выглядят здоровыми — никаких изменений не видно. На снимке создаётся впечатление, что человек полностью здоров. Но это не так.</p>
                 
@@ -884,7 +878,7 @@
         
         <div class="footer">
             <p>Информационный материал об обязательном обследовании на туберкулёз в коллективах.</p>
-            <p>Все изображения являются учебными материалами, текст адаптирован для коллективов учреждений</p>
+            <p>Все изображения являются учебными материалаи, текст адаптирован для коллективов учреждений</p>
             <p style="margin-top: 15px; color: #95a5a6; font-size: 14px;">Автор и разработчик: заведующий филиалом "Клинский" ГБУЗ МО МОКПТД Лукаш И.А</p>
         </div>
     </div>
@@ -930,43 +924,6 @@
             if (event.key === 'Escape') {
                 closeModal();
             }
-        });
-        
-        // Скрипт для улучшения печати
-        document.addEventListener('DOMContentLoaded', function() {
-            // Добавляем специальные стили для печати
-            const printStyles = document.createElement('style');
-            printStyles.innerHTML = `
-                @media print {
-                    html, body {
-                        width: 210mm !important;
-                        height: 297mm !important;
-                        overflow: hidden !important;
-                    }
-                    
-                    @page {
-                        size: A4 portrait !important;
-                        margin: 15mm !important;
-                    }
-                    
-                    body * {
-                        visibility: hidden;
-                    }
-                    
-                    .article-container, .article-container * {
-                        visibility: visible;
-                    }
-                    
-                    .article-container {
-                        position: absolute;
-                        left: 0;
-                        top: 0;
-                        width: 100% !important;
-                        max-width: 100% !important;
-                    }
-                }
-            `;
-            document.head.appendChild(printStyles);
         });
     </script>
 </body>
