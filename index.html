@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Информация об обследовании на туберкулез в Вашем коллективе</title>
     <style>
+        /* Все CSS стили остаются такими же, как в предыдущей версии */
         * {
             margin: 0;
             padding: 0;
@@ -551,6 +552,20 @@
                 grid-template-columns: 1fr !important;
                 gap: 15px !important;
             }
+            
+            /* ДОБАВЛЕНО: Группировка заголовка с изображением */
+            .image-group {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            
+            .image-group .subsection-title {
+                margin-bottom: 5px !important;
+            }
+            
+            .image-group .image-container {
+                margin-top: 5px !important;
+            }
         }
         
         @media (max-width: 768px) {
@@ -663,6 +678,12 @@
             page-break-inside: avoid !important;
             break-inside: avoid !important;
         }
+        
+        /* ДОБАВЛЕНО: Группировка заголовка с изображением */
+        .image-group {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
     </style>
 </head>
 <body>
@@ -683,7 +704,7 @@
             
             <ul class="numbered-list">
                 <li><span class="highlight">Сотрудникам и учащимся:</span> пройти обязательное обследование.</li>
-                <li><span class="highlight">Администрации:</span> организовать обследование так, чтобы каждый сотрудник мог пройти его спокойно и без лишних сложностей.</li>
+                <li><span class="highlight">Администрации:</span> организовать обследование так, чтобы каждый сотрудник мог пройти его спокойно и без лишных сложностей.</li>
             </ul>
         </div>
         
@@ -775,15 +796,18 @@
                 </p>
             </div>
             
-            <h3 class="subsection-title">Поиск ранных изменений.</h3>
-            
-            <p>Рассмотрим другой пример:  флюорографии лёгкие выглядят здоровыми — никаких изменений не видно. На снимке создаётся впечатление, что человек полностью здоров. Но это не так.</p>
-            
-            <div class="image-container no-zoom">
-                <img src="image2.png" alt="Флюорограмма без видимых изменений">
-                <p class="image-caption">
-                    <span class="image-number">Рис. 2</span> По данным флюорографии изменения не видны
-                </p>
+            <!-- ИСПРАВЛЕНО: заголовок и изображение сгруппированы вместе -->
+            <div class="image-group">
+                <h3 class="subsection-title">Поиск ранных изменений.</h3>
+                
+                <p>Рассмотрим другой пример: флюорографии лёгкие выглядят здоровыми — никаких изменений не видно. На снимке создаётся впечатление, что человек полностью здоров. Но это не так.</p>
+                
+                <div class="image-container no-zoom">
+                    <img src="image2.png" alt="Флюорограмма без видимых изменений">
+                    <p class="image-caption">
+                        <span class="image-number">Рис. 2</span> По данным флюорографии изменения не видны
+                    </p>
+                </div>
             </div>
             
             <p>На самом деле, ранняя стадия туберкулёза уже развилась. Это станет очевидно при переходе на более точный метод — компьютерную томографию (КТ).</p>
