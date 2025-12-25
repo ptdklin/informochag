@@ -395,31 +395,161 @@
             display: block;
         }
         
+        /* СТИЛИ ДЛЯ ПЕЧАТИ - ИСПРАВЛЕНЫ */
         @media print {
+            @page {
+                size: portrait; /* Книжный формат */
+                margin: 15mm; /* Уменьшаем поля */
+            }
+            
             body {
-                background-color: white;
-                padding: 0;
-                font-size: 14pt;
+                background-color: white !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                font-size: 12pt !important;
+                line-height: 1.4 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                color: #000 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
             
             .article-container {
-                box-shadow: none;
-                padding: 20px;
-                page-break-inside: avoid;
+                box-shadow: none !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                border-radius: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                background: white !important;
+            }
+            
+            .article-container::before {
+                display: none !important;
+            }
+            
+            h1 {
+                font-size: 18pt !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+                margin-top: 0 !important;
+                padding-top: 5mm !important;
+            }
+            
+            .section-title {
+                font-size: 16pt !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+                margin-top: 20px !important;
+                margin-bottom: 15px !important;
+            }
+            
+            .subsection-title {
+                font-size: 14pt !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+            }
+            
+            .content-section {
+                margin-bottom: 20px !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            
+            .highlight-box, .info-box, .question-box, .conclusion {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                margin: 15px 0 !important;
+                padding: 15px !important;
             }
             
             .image-container, .figure-item {
-                page-break-inside: avoid;
-                break-inside: avoid;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                margin: 20px 0 !important;
+                padding: 10px !important;
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
             }
             
-            h1, h2, h3 {
-                page-break-after: avoid;
+            .image-container img, .figure-item img {
+                max-width: 100% !important;
+                height: auto !important;
+                max-height: 250px !important; /* Ограничиваем высоту изображений */
+                object-fit: contain !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
             }
             
+            .image-caption {
+                font-size: 10pt !important;
+                margin-top: 10px !important;
+            }
+            
+            ul, ol {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+                margin: 10px 0 !important;
+            }
+            
+            li {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            
+            .numbered-list li {
+                padding-left: 35px !important;
+                margin-bottom: 10px !important;
+            }
+            
+            .numbered-list li::before {
+                width: 25px !important;
+                height: 25px !important;
+                font-size: 12px !important;
+            }
+            
+            .click-hint, .modal, .close {
+                display: none !important;
+            }
+            
+            .footer {
+                margin-top: 30px !important;
+                padding-top: 15px !important;
+                font-size: 10pt !important;
+                page-break-before: avoid !important;
+                break-before: avoid !important;
+            }
+            
+            /* Предотвращаем висячие строки */
+            p, h1, h2, h3, h4, h5, h6 {
+                orphans: 3 !important;
+                widows: 3 !important;
+                page-break-after: avoid !important;
+                break-after: avoid !important;
+            }
+            
+            /* Минимизируем разрывы страниц */
+            .avoid-break {
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
+            }
+            
+            /* Убираем все hover-эффекты */
             .image-container:hover, .figure-item:hover img {
-                transform: none;
-                box-shadow: 0 3px 6px rgba(0,0,0,0.08);
+                transform: none !important;
+                box-shadow: none !important;
+            }
+            
+            .header::after, .section-title::after, .info-box::before {
+                display: none !important;
+            }
+            
+            .figure-grid {
+                grid-template-columns: 1fr !important;
+                gap: 15px !important;
             }
         }
         
@@ -520,6 +650,18 @@
         .new-line {
             display: block;
             margin-top: 10px;
+        }
+        
+        /* Дополнительные стили для предотвращения разрывов */
+        .no-break {
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
+        }
+        
+        .keep-together {
+            display: inline-block;
+            page-break-inside: avoid !important;
+            break-inside: avoid !important;
         }
     </style>
 </head>
@@ -667,7 +809,7 @@
             <div class="image-container zoom-enabled" onclick="openModal('image5.png', 'Рис. 4: Визуальное сравнение двух методов исследований')">
                 <img src="image5.png" alt="Сравнение флюорографии и КТ">
                 <p class="image-caption">
-                    <span class="image-number">Рис. 4</span> Изображения размещены рядом для удобства сравнения и лучшего понимания различий между флюорографией и КТ.
+                    <span class="image-number">Рис. 4</span> Изображения размещены рядом для удобства сравнения и лучшего понимания различий между флюорографии и КТ.
                     <span class="click-hint">(нажмите на картинку для увеличения)</span>
                 </p>
             </div>
@@ -772,51 +914,35 @@
             const printStyles = document.createElement('style');
             printStyles.innerHTML = `
                 @media print {
-                    body {
-                        font-size: 12pt !important;
-                        line-height: 1.5 !important;
+                    html, body {
+                        width: 210mm !important;
+                        height: 297mm !important;
+                        overflow: hidden !important;
+                    }
+                    
+                    @page {
+                        size: A4 portrait !important;
+                        margin: 15mm !important;
+                    }
+                    
+                    body * {
+                        visibility: hidden;
+                    }
+                    
+                    .article-container, .article-container * {
+                        visibility: visible;
                     }
                     
                     .article-container {
-                        padding: 15px !important;
-                        margin: 0 !important;
-                        box-shadow: none !important;
-                        border-radius: 0 !important;
-                    }
-                    
-                    .image-container, .figure-item {
-                        margin: 20px 0 !important;
-                        page-break-inside: avoid !important;
-                        break-inside: avoid !important;
-                    }
-                    
-                    img {
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        width: 100% !important;
                         max-width: 100% !important;
-                        height: auto !important;
-                    }
-                    
-                    .highlight-box, .info-box, .question-box, .conclusion {
-                        page-break-inside: avoid !important;
-                    }
-                    
-                    h1, h2, h3 {
-                        page-break-after: avoid !important;
-                    }
-                    
-                    .click-hint {
-                        display: none !important;
                     }
                 }
             `;
             document.head.appendChild(printStyles);
-            
-            // Добавляем нумерацию страниц при печати
-            window.addEventListener('beforeprint', function() {
-                const pageNumbers = document.createElement('div');
-                pageNumbers.id = 'page-numbers';
-                pageNumbers.style.cssText = 'position: fixed; bottom: 10px; right: 20px; font-size: 12px; color: #666;';
-                document.body.appendChild(pageNumbers);
-            });
         });
     </script>
 </body>
