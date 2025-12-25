@@ -144,12 +144,19 @@
             background-color: #f9f9f9;
             border: 1px solid #eaeaea;
             border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .image-container:hover {
+            transform: scale(1.02);
         }
         
         .image-container img {
             max-width: 100%;
             height: auto;
             border-radius: 6px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         
         .image-caption {
@@ -157,6 +164,7 @@
             color: #555;
             margin-top: 15px;
             font-size: 16px;
+            line-height: 1.5;
         }
         
         .image-number {
@@ -167,6 +175,16 @@
             border-radius: 4px;
             font-weight: bold;
             margin-right: 8px;
+            font-size: 14px;
+        }
+        
+        .click-hint {
+            display: block;
+            font-size: 12px;
+            color: #3498db;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         
         .highlight {
@@ -174,6 +192,7 @@
             padding: 2px 6px;
             border-radius: 4px;
             font-weight: 600;
+            color: #2980b9;
         }
         
         ul, ol {
@@ -212,6 +231,7 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            box-shadow: 0 3px 6px rgba(52, 152, 219, 0.3);
         }
         
         .question-box {
@@ -237,6 +257,8 @@
             border-radius: 0 10px 10px 0;
             text-align: center;
             font-style: italic;
+            font-size: 19px;
+            color: #2e7d32;
         }
         
         .footer {
@@ -255,17 +277,75 @@
             border-left: 5px solid #e74c3c;
             margin: 15px 0;
             border-radius: 6px;
+            color: #c0392b;
         }
-
-        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); }
-        .modal-content { margin: auto; display: block; max-width: 90%; max-height: 90%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-        .close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 40px; cursor: pointer; }
 
         .image-group {
-            margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
         }
 
-        /* ОПТИМИЗАЦИЯ ДЛЯ ПЕЧАТИ */
+        .figure-item {
+            flex: 1;
+            min-width: 300px;
+            max-width: 450px;
+        }
+
+        /* МОДАЛЬНОЕ ОКНО */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            overflow: auto;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 90%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .modal-caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .close:hover { color: #bbb; }
+
+        /* ОПТИМИЗАЦИЯ ДЛЯ ПЕЧАТИ (КНИЖНЫЙ ФОРМАТ) */
         @media print {
             @page {
                 size: A4 portrait;
@@ -288,11 +368,12 @@
                 width: 100% !important;
             }
 
-            .article-container::before, .header::after, .section-title::after, .click-hint {
+            .article-container::before, .header::after, .section-title::after, .click-hint, .modal, .close {
                 display: none !important;
             }
 
             h1 { font-size: 18pt !important; margin-bottom: 5mm !important; text-align: center !important; }
+            .subtitle { font-size: 12pt !important; text-align: center !important; margin-bottom: 5mm !important; }
             
             .section-title {
                 font-size: 14pt !important;
@@ -302,13 +383,21 @@
                 page-break-after: avoid !important;
             }
 
+            .subsection-title {
+                font-size: 12pt !important;
+                margin: 4mm 0 2mm 0 !important;
+                page-break-after: avoid !important;
+            }
+
             /* БЛОК "ПОИСК РАННИХ ИЗМЕНЕНИЙ" - ТЕПЕРЬ НЕРАЗРЫВНЫЙ */
             .keep-together {
                 page-break-inside: avoid !important;
                 margin-bottom: 5mm !important;
+                border: 1px solid transparent; /* Технический хак для браузеров */
             }
 
-            .highlight-box, .info-box, .question-box, .legal-reference, .conclusion {
+            /* Разрешаем разрывы внутри других длинных блоков, чтобы не было дыр */
+            .highlight-box, .info-box, .question-box, .legal-reference, .conclusion, .content-section {
                 page-break-inside: auto !important;
                 margin: 3mm 0 !important;
                 padding: 3mm !important;
@@ -316,13 +405,16 @@
                 border-left: 3pt solid #3498db !important;
             }
 
-            .image-container {
+            .image-container, .figure-item {
                 page-break-inside: avoid !important;
                 margin: 4mm auto !important;
                 padding: 2mm !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                border: 0.5pt solid #eee !important;
             }
 
-            .image-container img {
+            .image-container img, .figure-item img {
                 max-height: 7.5cm !important;
                 width: auto !important;
                 max-width: 100% !important;
@@ -330,9 +422,15 @@
                 margin: 0 auto;
             }
 
+            .image-caption {
+                font-size: 9pt !important;
+                margin-top: 2mm !important;
+            }
+
             .footer {
                 margin-top: 5mm !important;
                 font-size: 8pt !important;
+                page-break-inside: avoid !important;
             }
         }
     </style>
@@ -353,7 +451,7 @@
         <div class="content-section">
             <h2 class="section-title">Что нужно сделать:</h2>
             <ul class="numbered-list">
-                <li><span class="highlight">Сотрудникам и учащимся:</span> пройти обязательное обследование.</li>
+                <li><span class="highlight">Сотрудникам и учащимся:</span> пройти обязательное обследование в установленные сроки. Это необходимо для подтверждения отсутствия заболевания и обеспечения безопасности окружающих.</li>
                 <li><span class="highlight">Администрации:</span> организовать обследование так, чтобы каждый сотрудник мог пройти его спокойно и без лишних сложностей.</li>
             </ul>
         </div>
@@ -369,8 +467,8 @@
         <div class="content-section">
             <h2 class="section-title">Последствия невыполнения:</h2>
             <div class="highlight-box">
-                <p><strong>Для сотрудников и учащихся:</strong> временное отстранение от работы или учёбы, невозможность пребывания в коллективе.</p>
-                <p><strong>Для руководителей:</strong> административная ответственность за нарушение санитарных норм.</p>
+                <p><strong>Для сотрудников и учащихся:</strong> временное отстранение от работы или учёбы, невозможность пребывания в коллективе до момента предоставления результатов обследования.</p>
+                <p><strong>Для руководителей:</strong> административная ответственность за нарушение санитарных норм и допуск к работе лиц, не прошедших обследование.</p>
             </div>
         </div>
         
@@ -388,12 +486,11 @@
         <div class="content-section">
             <h2 class="section-title">Ключевые факты о туберкулезе</h2>
             <div class="info-box">
-                <p><span class="highlight">Коварство болезни:</span> в большинстве случаев долго протекает бесимптомно - человек чувствует себя здоровым, хотя уже болен и может быть источником инфекции.</p>
+                <p><span class="highlight">Коварство болезни:</span> туберкулёз в большинстве случаев долго протекает бессимптомно — человек может чувствовать себя абсолютно здоровым, не иметь кашля или температуры, хотя болезнь уже разрушает его организм и он может быть источником инфекции для других.</p>
             </div>
             <div class="highlight-box">
-                <p><span class="highlight">Флюорография не выявляет ранний туберкулез, потому что она показывает только крупные изменения в легких.</span></p>
-                <p style="margin-top: 10px;">На первых стадиях болезни очаги очень маленькие, и из-за низкого разрешения аппарата их просто невозможно увидеть на снимке.</p>
-                <p style="margin-top: 10px;">Для своевременного выявления эффективны иммунологические тесты (<span class="highlight">Диаскинтест</span>) и <span class="highlight">компьютерная томография (КТ)</span>.</p>
+                <p><span class="highlight">Важно помнить:</span> флюорография не всегда выявляет ранний туберкулёз. Она эффективна для обнаружения уже развитых форм болезни, но на самых начальных стадиях очаги могут быть слишком малы для этого метода диагностики.</p>
+                <p style="margin-top: 10px;">Для своевременного выявления самых первых изменений в организме наиболее эффективны современные иммунологические тесты (<span class="highlight">Диаскинтест</span>) и <span class="highlight">компьютерная томография (КТ)</span>.</p>
             </div>
         </div>
 
@@ -401,31 +498,34 @@
             <h2 class="section-title">Визуальная диагностика: почему важен Диаскинтест</h2>
             <p><span class="highlight">Как правило, на флюорографии видны только крупные изменения в лёгких, на ранних стадиях изменения незаметны, потому что ещё «прячутся» за ребрами.</span></p>
             
-            <div class="image-container">
+            <div class="image-container" onclick="openModal('image1.png', 'Рис. 1 На этой флюорографии видны многочисленные слившиеся между собой пятна... Это туберкулезный процесс в обоих легких. Он запущенный, поздно выявили.')">
                 <img src="image1.png" alt="Флюорография">
                 <p class="image-caption"><span class="image-number">Рис. 1</span> На этой флюорографии видны многочисленные слившиеся между собой пятна... Это туберкулезный процесс в обоих легких. Он запущенный, поздно выявили.</p>
+                <span class="click-hint">Нажмите для увеличения</span>
             </div>
 
             <div class="keep-together">
                 <h3 class="subsection-title">Поиск ранних изменений.</h3>
-                <p>Рассмотрим другой пример: флюорографии лёгкие выглядят здоровыми — никаких изменений не видно. На снимке создаётся впечатление, что человек полностью здоров. Но это не так.</p>
+                <p>Рассмотрим другой пример: на флюорографии лёгкие выглядят здоровыми — никаких изменений не видно. На снимке создаётся впечатление, что человек полностью здоров. Но это не так.</p>
                 
-                <div class="image-container">
+                <div class="image-container" onclick="openModal('image2.png', 'Рис. 2 По данным флюорографии изменения не видны')">
                     <img src="image2.png" alt="Флюорограмма">
                     <p class="image-caption"><span class="image-number">Рис. 2</span> По данным флюорографии изменения не видны</p>
+                    <span class="click-hint">Нажмите для увеличения</span>
                 </div>
             </div>
 
             <p>На самом деле, ранняя стадия туберкулёза уже развилась. Это станет очевидно при переходе на более точный метод — компьютерную томографию (КТ).</p>
             
             <h3 class="subsection-title">Теперь посмотрите на КТ того же пациента:</h3>
-            <div class="image-container">
+            <div class="image-container" onclick="openModal('image3.png', 'Рис. 3 На компьютерной томографии того же пациента отчётливо виден небольшой очаг туберкулёза в верхней доле левого лёгкого.')">
                 <img src="image3.png" alt="КТ легких">
                 <p class="image-caption"><span class="image-number">Рис. 3</span> На компьютерной томографии того же пациента отчётливо виден небольшой очаг туберкулёза в верхней доле левого лёгкого.</p>
+                <span class="click-hint">Нажмите для увеличения</span>
             </div>
 
             <div class="highlight-box">
-                <p>Такие ранние, небольшие изменения невозможно надёжно увидеть на флюорографии — они выявляются только при компьютерной томографии.</p>
+                <p>Такие ранние, небольшие изменения невозможно надёжно увидеть на флюорографии — они выявляются только при компьютерной томографии. Именно поэтому при подозрении на инфекцию или положительном Диаскинтесте важно пройти КТ, даже если обычный снимок "чистый".</p>
             </div>
         </div>
 
@@ -433,24 +533,24 @@
             <h2 class="section-title">Этапы диагностики</h2>
             <h3 class="subsection-title">1-й этап. Диаскинтест</h3>
             <ul style="list-style-type: none; padding-left: 0;">
-                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: #3498db;">•</span> <span class="highlight">Что это?</span> Современный иммунный внутрикожный тест.</li>
-                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: #3498db;">•</span> <span class="highlight">Это не прививка.</span> Безопасен, не содержит живых бактерий.</li>
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: #3498db; font-size: 20px;">•</span> <span class="highlight">Что это?</span> Современный иммунный внутрикожный тест, который реагирует только на активные или «спящие» в организме бактерии туберкулёза.</li>
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: #3498db; font-size: 20px;">•</span> <span class="highlight">Это не прививка.</span> Тест абсолютно безопасен, не содержит живых бактерий и не может вызвать заболевание.</li>
             </ul>
             
             <div class="info-box">
-                <p><span class="highlight">Важно знать!</span> Если заражение было совсем недавно, тест может быть отрицательным. <span class="highlight">Обследование нужно повторить через 3, 6 и 12 месяцев.</span></p>
+                <p><span class="highlight">Важно знать!</span> Если заражение произошло совсем недавно, тест может быть отрицательным в первые недели. Поэтому при наличии контакта обследование <span class="highlight">необходимо повторить через 3, 6 и 12 месяцев</span>.</p>
             </div>
 
             <h3 class="subsection-title">2-й этап. Проверим легкие</h3>
-            <p>В зависимости от результата теста:</p>
+            <p>В зависимости от результата теста врач определяет дальнейшую тактику:</p>
             <ul style="list-style-type: none; padding-left: 0;">
-                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: #3498db;">•</span> Отрицательный результат → <span class="highlight">рентгенография легких</span>.</li>
-                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: #3498db;">•</span> Положительный результат → <span class="highlight">КТ лёгких</span>.</li>
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: #3498db; font-size: 20px;">•</span> При отрицательном результате → достаточно <span class="highlight">рентгенографии легких</span>.</li>
+                <li style="padding-left: 20px; position: relative;"><span style="position: absolute; left: 0; color: #3498db; font-size: 20px;">•</span> При положительном результате → обязательное проведение <span class="highlight">КТ лёгких</span> для исключения ранних форм болезни.</li>
             </ul>
         </div>
 
         <div class="conclusion">
-            <p>Обследование на туберкулёз — это не формальность, а реальная возможность защитить себя и окружающих. Ранняя диагностика спасает жизни.</p>
+            <p>Обследование на туберкулёз — это не формальность, а реальная возможность защитить себя и окружающих. Ранняя диагностика спасает жизни и позволяет полностью вылечиться без последствий для здоровья.</p>
             <p style="margin-top: 15px; font-weight: bold;">Ответственное отношение к обследованию — вклад в здоровье всего коллектива!</p>
         </div>
 
@@ -458,5 +558,33 @@
             <p>Автор и разработчик: заведующий филиалом "Клинский" ГБУЗ МО МОКПТД Лукаш И.А</p>
         </div>
     </div>
+
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="modalCaption" class="modal-caption"></div>
+    </div>
+    
+    <script>
+        function openModal(imageSrc, caption) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('modalCaption');
+            modal.style.display = 'block';
+            modalImg.src = imageSrc;
+            captionText.innerHTML = caption;
+            document.body.style.overflow = 'hidden';
+        }
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+        document.getElementById('imageModal').addEventListener('click', function(event) {
+            if (event.target === this) { closeModal(); }
+        });
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') { closeModal(); }
+        });
+    </script>
 </body>
 </html>
